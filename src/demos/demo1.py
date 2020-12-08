@@ -17,5 +17,17 @@ class GraphNode:
         self.color = None
 
 def color_graph(graph, colors):
-    # Your code here
-    pass
+    # Iterate over each node of the graph
+    for node in graph:
+        # Handle infinite cycles
+        if node in node.neighbors:
+            raise Exception('Infinite Cycle- Cant find legal colors')
+        # Get the nodes neighbors colors
+        # Check if color is illegal
+        illegal_colors = set([neighbor.color for neighbor in node.neighbors if neighbor.color])
+        
+        # Assign the first legal color
+        for color in colors:
+            if color not in illegal_colors:
+                node.color = color
+                break
